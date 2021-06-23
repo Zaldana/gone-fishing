@@ -53,11 +53,17 @@ function generateRandomFish(adjOne, adjTwo, fish) {
         fishType = fish[Math.floor((Math.random() * 9)) + 1];
     }
 
-    //Return random fish object
-    return {
+    const fishObject = {
         fish: firstAdj + " " + secndAdjs + " " + fishType,
         weight: weight + "lbs",
         value: "$" + value
     };
 
+    //Return random fish object
+    return fishObject;
+
 }
+
+//Ramdom fish holder
+let newFish = generateRandomFish(adjOne, adjTwo, fish);
+
