@@ -15,16 +15,16 @@ const multiLinePrompt = ask => {
 // Random fish generator function //////////////////////////////////////
 
 // Fish adjective 1
-const adjOne = ["giant", "lazy", "snapping", "hairy", "iridescent",
-    "sexy", "ornery", "spiny", "venomous", "classic"];
+const adjOne = ["Giant", "Lazy", "Snapping", "Hairy", "Iridescent",
+    "Sexy", "Ornery", "Spiny", "Venomous", "Classic"];
 
 // Fish adjective 2
-const adjTwo = ["squishy", "chunky", "sneaky", "suspicious",
-    "sensitive", "greedy", "rabid", "angry", "stupid", "yummy"];
+const adjTwo = ["Squishy", "Chunky", "Sneaky", "Suspicious",
+    "Sensitive", "Greedy", "Rabid", "Angry", "Stupid", "Yummy"];
 
 // Fish Type
-const fish = ["trout", "carp", "catfish", "loach", "bass",
-    "tilapia", "salmon", "arowana", "shark", "guppy"];
+const fish = ["Trout", "Carp", "Catfish", "Loach", "Bass",
+    "Tilapia", "Salmon", "Arowana", "Shark", "Leather Boot"];
 
 // Function ============================================================
 
@@ -40,22 +40,22 @@ function generateRandomFish(adjOne, adjTwo, fish) {
     let fishType = [];
 
     // Random weight
-    const weightRnd = Math.floor(Math.random() * 4);
+    const weightRnd = Math.fround(Math.random() * 5);
     const weight = weightRnd.toFixed(2);
 
     // Randon value
-    const value = Math.round(Math.random() * 10);
+    const value = (Math.round(Math.random() * 10)) + 1;
 
     //For loop for arrays
     for (i = 0; i < 1; i++) {
 
-        // Random generated first adjective
+        // Random generated [i] for first adjective
         firstAdj = adjOne[Math.floor((Math.random() * 9)) + 1];
 
-        // Random generated second adjective
+        // Random generated [i] second adjective
         secndAdjs = adjTwo[Math.floor((Math.random() * 9)) + 1];
 
-        //Random generated fish type
+        //Random generated [i] for fish type
         fishType = fish[Math.floor((Math.random() * 9)) + 1];
     }
 
@@ -74,12 +74,23 @@ function generateRandomFish(adjOne, adjTwo, fish) {
 
 // Game Start /////////////////////////////////////////////////////
 
+// Art ============================================================
+
+console.log("====================================================================================");
+console.log("░██████╗░░█████╗░███╗░░██╗███████╗  ███████╗██╗░██████╗██╗░░██╗██╗███╗░░██╗░██████╗░");
+console.log("██╔════╝░██╔══██╗████╗░██║██╔════╝  ██╔════╝██║██╔════╝██║░░██║██║████╗░██║██╔════╝░");
+console.log("██║░░██╗░██║░░██║██╔██╗██║█████╗░░  █████╗░░██║╚█████╗░███████║██║██╔██╗██║██║░░██╗░");
+console.log("██║░░╚██╗██║░░██║██║╚████║██╔══╝░░  ██╔══╝░░██║░╚═══██╗██╔══██║██║██║╚████║██║░░╚██╗");
+console.log("╚██████╔╝╚█████╔╝██║░╚███║███████╗  ██║░░░░░██║██████╔╝██║░░██║██║██║░╚███║╚██████╔╝");
+console.log("░╚═════╝░░╚════╝░╚═╝░░╚══╝╚══════╝  ╚═╝░░░░░╚═╝╚═════╝░╚═╝░░╚═╝╚═╝╚═╝░░╚══╝░╚═════╝░");
+console.log("====================================================================================");
+
+// Game Instructions
 console.log("\n\
-You've gone fishing! Try to maximize the value of your caught\n\
-fish. You can fish for six hours (till 12:00pm) and can catch \n\
-at most 10 lbs of fish.");
+You've gone fishing! Try to maximize the value of your caught fish. You can fish for\n\
+six hours (untill 12:00pm) and can catch at most 10 lbs of fish.");
 console.log("\n\
-================================================================\n\
+====================================================================================\n\
 ");
 
 // Starting Score =======================================================
@@ -97,7 +108,7 @@ let totalWeight = 0;
 let promptStart = multiLinePrompt("\n\
 The time is " + timeHour + timeMin + timeAmpm +
     " So far you've caught: \n\
-" + fishAmount + "lbs, " + "$" + totalValue + ".00 \n\
+" + fishAmount + " fish, " + "and earned $" + totalValue + ".00 \n\
 \n\
 press [Enter] to begin fishing");
 
@@ -108,38 +119,46 @@ console.clear();
 
 while (timeHour !== 12) {
 
-
-    ////////////////////////////// GAME TOOLS ///////////////////////////////
+    // Game Tools////////////////////////////////////////////////////////
 
     // Game clock ======================================================
 
     timeHour += 1;
     timeCount += 1;
-    if (timeCount > 6) { timeAmpm = "pm"; }
+    if (timeCount > 5) { timeAmpm = "pm"; }
 
     // Random fish holder =================================================
 
     let newFish = generateRandomFish(adjOne, adjTwo, fish);
 
+    // Boot Check =========================================================
+
+    if (newFish.fish.includes("Leather Boot")) { newFish.value = 0; }
+
     // Fish weight check ==================================================
 
     if (newFish.weight + totalWeight >= 10) {
 
-
-
+        let tooHeavy = multiLinePrompt("\n\
+You reeled in a " + newFish.fish + " weighing " + newFish.weight + "lbs\n\
+and valued at $" + newFish.value + ".00\n\
+\n\
+Unfortunately the fish is too heavy to add to your bag and it got away\n\
+\n\
+Press [Enter] to cast again.");
     }
 
     ///////////////////////////////////////////////////////////////////////////
 
     // Fishing Start ======================================================
 
-    if (newFish.weight + totalWeight <= 10) {
+    else {
 
         let fishing = multiLinePrompt("\n\
 You reeled in a " + newFish.fish + " weighing " + newFish.weight + "lbs\n\
 and valued at $" + newFish.value + ".00!\n\
 \n\
-Your action: [c]atch or [r]elease ?)\n\
+Would you like to: [c]atch or [r]elease ?)\n\
 \n\
 ");
 
@@ -150,14 +169,52 @@ Your action: [c]atch or [r]elease ?)\n\
             // Terminal clear
             console.clear();
 
-            //Score update
+            //Art ===========================================================
+
+            console.log("                                      ____        ");
+            console.log("                                 /\\|    ~~\\     ");
+            console.log("                                / '  |  ,-.`\\    ");
+            console.log("                               |       | X | |    ");
+            console.log("                         ______|________`-'  |X   ");
+            console.log("                       /'          ~~~~~~~~~,     ");
+            console.log("                      /'             ,_____,/_    ");
+            console.log("                   ,/'        ___,'~~         ;   ");
+            console.log("~~~~~~~~|~~~~~~~|---         /  X,~~~~~~~~~~~~,   ");
+            console.log("        |       |           |  XX'____________'   ");
+            console.log("        |       |          /' XXX|            ;   ");
+            console.log("        |               --x|  XXX,~~~~~~~~~~~~,   ");
+            console.log("        |       |         X|     '____________'   ");
+            console.log("        |   o   |----~~~~\\__XX\\            |XX  ");
+            console.log("        |       |           XXX`\\          /XXXX ");
+            console.log("~~~~~~~~'~~~~~~~'                `\\xXXXXx/'\\XXX ");
+            console.log("                                    /XXXXXX\      ");
+            console.log("                                  / XXXXXXXXXX\   ");
+            console.log("                                /XXXXXX/^\\XDCAU\\");
+            console.log("                               ~~~~~~~~   ~~~~~~~ ");
+            //Spacer
+            console.log();
+            console.log();
+            //===============================================================
+
+            // Score update
             fishAmount += 1;
             totalWeight += Number(newFish.weight);
             totalValue += newFish.value;
-            console.log(totalWeight.toFixed(2) + "lbs");
-            console.log("$" + totalValue + ".00");
-            console.log("Total Fish: " + fishAmount);
-            console.log("Current Time: " + timeHour + ":00" + timeAmpm);
+
+            // User stat update
+            console.log("Your new total weight is now:  " + totalWeight.toFixed(2) + "lbs");
+            console.log("You have made a total of:  $" + totalValue + ".00");
+            console.log("You have cought:  " + fishAmount + " fish");
+            console.log("The current time is:  " + timeHour + ":00" + timeAmpm);
+
+            //Spacer
+            console.log();
+
+            //Re-cast prompt
+            let cast = prompt("Press [Enter] to cast again");
+
+            // Terminal clear
+            console.clear();
 
         }
 
@@ -165,12 +222,43 @@ Your action: [c]atch or [r]elease ?)\n\
 
             // Terminal clear
             console.clear();
-            // Add to fish quantity
-            console.log(newFish.fish + " is to heavy, you have to let it go");
-            console.log(totalWeight.toFixed(2) + "lbs");
-            console.log("$" + totalValue + ".00");
-            console.log("Total Fish: " + fishAmount);
-            console.log("Current Time: " + timeHour + ":00" + timeAmpm);
+
+            //Art ===========================================================
+
+            console.log("             o                 o");
+            console.log("          o                     ");
+            console.log("    o       ______          O   ");
+            console.log("          _/  (   \\_           ");
+            console.log("_       _/  (       \\_      O  ");
+            console.log("| \\_   _/  (   (    0  \\      ");
+            console.log("|== \\_/  (   (          |  o   ");
+            console.log("|=== _ (   (   (        |       ");
+            console.log("|==_/ \\_ (   (          |      ");
+            console.log("|_/     \\_ (   (    \\__/      ");
+            console.log("         \\_ (      _/          ");
+            console.log("           |   |__/             ");
+            console.log("           /__/                 ");
+
+            //===============================================================
+
+            //Spacer
+            console.log();
+
+            // User stat update
+            console.log("You let the " + newFish.fish + " go.");
+            console.log("Your total weight is:  " + totalWeight.toFixed(2) + "lbs");
+            console.log("You have made a total of:  $" + totalValue + ".00");
+            console.log("You have cought:  " + fishAmount);
+            console.log("The current time is:  " + timeHour + ":00" + timeAmpm);
+
+            //Spacer
+            console.log();
+
+            //Re-cast prompt
+            let cast = prompt("Press [Enter] to cast again");
+
+            // Terminal clear
+            console.clear();
 
         }
     }
@@ -178,4 +266,16 @@ Your action: [c]atch or [r]elease ?)\n\
 //While loop end/////////////////////////////////////////////////////////////
 
 //ENDGAME///////////////////////////////////////////////////////////////////
-console.log("Times UP");
+
+console.log("TIME'S UP!");
+console.log("Your total weight is now:  " + totalWeight.toFixed(2) + "lbs");
+console.log("You made a total of:  $" + totalValue + ".00");
+console.log("You cought:  " + fishAmount + " fish");
+console.log();
+console.log();
+console.log("░██████╗░░█████╗░███╗░░░███╗███████╗  ░█████╗░██╗░░░██╗███████╗██████╗░");
+console.log("██╔════╝░██╔══██╗████╗░████║██╔════╝  ██╔══██╗██║░░░██║██╔════╝██╔══██╗");
+console.log("██║░░██╗░███████║██╔████╔██║█████╗░░  ██║░░██║╚██╗░██╔╝█████╗░░██████╔╝");
+console.log("██║░░╚██╗██╔══██║██║╚██╔╝██║██╔══╝░░  ██║░░██║░╚████╔╝░██╔══╝░░██╔══██╗");
+console.log("╚██████╔╝██║░░██║██║░╚═╝░██║███████╗  ╚█████╔╝░░╚██╔╝░░███████╗██║░░██║");
+console.log("░╚═════╝░╚═╝░░╚═╝╚═╝░░░░░╚═╝╚══════╝  ░╚════╝░░░░╚═╝░░░╚══════╝╚═╝░░╚═╝");
