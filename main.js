@@ -12,6 +12,10 @@ const multiLinePrompt = ask => {
     return prompt(promptLine);
 };
 
+// Colors ==============================================================
+
+const chalk = require('chalk');
+
 // Random fish generator function //////////////////////////////////////
 
 // Fish adjective 1
@@ -76,14 +80,14 @@ function generateRandomFish(adjOne, adjTwo, fish) {
 
 // Art ============================================================
 
-console.log("====================================================================================");
-console.log("░██████╗░░█████╗░███╗░░██╗███████╗  ███████╗██╗░██████╗██╗░░██╗██╗███╗░░██╗░██████╗░");
-console.log("██╔════╝░██╔══██╗████╗░██║██╔════╝  ██╔════╝██║██╔════╝██║░░██║██║████╗░██║██╔════╝░");
-console.log("██║░░██╗░██║░░██║██╔██╗██║█████╗░░  █████╗░░██║╚█████╗░███████║██║██╔██╗██║██║░░██╗░");
-console.log("██║░░╚██╗██║░░██║██║╚████║██╔══╝░░  ██╔══╝░░██║░╚═══██╗██╔══██║██║██║╚████║██║░░╚██╗");
-console.log("╚██████╔╝╚█████╔╝██║░╚███║███████╗  ██║░░░░░██║██████╔╝██║░░██║██║██║░╚███║╚██████╔╝");
-console.log("░╚═════╝░░╚════╝░╚═╝░░╚══╝╚══════╝  ╚═╝░░░░░╚═╝╚═════╝░╚═╝░░╚═╝╚═╝╚═╝░░╚══╝░╚═════╝░");
-console.log("====================================================================================");
+console.log((chalk.blue("====================================================================================")));
+console.log((chalk.blue("░██████╗░░█████╗░███╗░░██╗███████╗  ███████╗██╗░██████╗██╗░░██╗██╗███╗░░██╗░██████╗░")));
+console.log((chalk.blue("██╔════╝░██╔══██╗████╗░██║██╔════╝  ██╔════╝██║██╔════╝██║░░██║██║████╗░██║██╔════╝░")));
+console.log((chalk.blue("██║░░██╗░██║░░██║██╔██╗██║█████╗░░  █████╗░░██║╚█████╗░███████║██║██╔██╗██║██║░░██╗░")));
+console.log((chalk.blue("██║░░╚██╗██║░░██║██║╚████║██╔══╝░░  ██╔══╝░░██║░╚═══██╗██╔══██║██║██║╚████║██║░░╚██╗")));
+console.log((chalk.blue("╚██████╔╝╚█████╔╝██║░╚███║███████╗  ██║░░░░░██║██████╔╝██║░░██║██║██║░╚███║╚██████╔╝")));
+console.log((chalk.blue("░╚═════╝░░╚════╝░╚═╝░░╚══╝╚══════╝  ╚═╝░░░░░╚═╝╚═════╝░╚═╝░░╚═╝╚═╝╚═╝░░╚══╝░╚═════╝░")));
+console.log((chalk.blue("====================================================================================")));
 
 // Game Instructions
 console.log("\n\
@@ -135,10 +139,45 @@ while (timeHour !== 12) {
 
     if (newFish.fish.includes("Leather Boot")) { newFish.value = 0; }
 
-    // Fish weight check ==================================================
+    // Fish weight check & Warning ==================================================
 
-    if (newFish.weight + totalWeight >= 10) {
+    if (Number(newFish.weight) + Number(totalWeight) > 10) {
 
+        //Art ===========================================================
+
+        console.log((chalk.green("             o                 o")));
+        console.log((chalk.green("          o                     ")));
+        console.log((chalk.green("    o       ______          O   ")));
+        console.log((chalk.green("          _/  (   \\_           ")));
+        console.log((chalk.green("_       _/  (       \\_      O  ")));
+        console.log((chalk.green("| \\_   _/  (   (    0  \\      ")));
+        console.log((chalk.green("|== \\_/  (   (          |  o   ")));
+        console.log((chalk.green("|=== _ (   (   (        |       ")));
+        console.log((chalk.green("|==_/ \\_ (   (          |      ")));
+        console.log((chalk.green("|_/     \\_ (   (    \\__/      ")));
+        console.log((chalk.green("         \\_ (      _/          ")));
+        console.log((chalk.green("           |   |__/             ")));
+        console.log((chalk.green("           /__/                 ")));
+        console.log();
+        console.log();
+
+        //===============================================================
+
+        //Spacer
+        console.log("==============================================================");
+        console.log();
+
+        // Current user stats
+        console.log("Your total weight is:  " + totalWeight.toFixed(2) + "lbs");
+        console.log("You have made a total of:  $" + totalValue + ".00");
+        console.log("You have caught:  " + fishAmount + " fish");
+        console.log("The current time is:  " + timeHour + ":00" + timeAmpm);
+
+        // Spacer
+        console.log();
+        console.log("==============================================================");
+
+        //Pack is too heavy prompt
         let tooHeavy = multiLinePrompt("\n\
 You reeled in a " + newFish.fish + " weighing " + newFish.weight + "lbs\n\
 and valued at $" + newFish.value + ".00\n\
@@ -146,14 +185,37 @@ and valued at $" + newFish.value + ".00\n\
 Unfortunately the fish is too heavy to add to your bag and it got away\n\
 \n\
 Press [Enter] to cast again.");
+
+        // Terminal clear
+        console.clear();
+
     }
 
-    ///////////////////////////////////////////////////////////////////////////
+    // Fishing Start ///////////////////////////////////////////////////////
 
-    // Fishing Start ======================================================
+    if (Number(newFish.weight) + Number(totalWeight) <= 10) {
 
-    else {
+        // Spacer
+        console.log("==============================================================");
+        console.log();
 
+        // Current user stats
+        console.log("Your total weight is:  " + totalWeight.toFixed(2) + "lbs");
+        console.log("You have made a total of:  $" + totalValue + ".00");
+        console.log("You have caught:  " + fishAmount + " fish");
+        console.log("The current time is:  " + timeHour + ":00" + timeAmpm);
+
+        // Spacer
+        console.log();
+        console.log("==============================================================");
+
+        if (Number(newFish.weight) + Number(totalWeight) > 7.5) {
+
+            console.log((chalk.red("Don't forget your pack limit is only 10lbs!")));
+
+        }
+
+        // Catch or release prompt
         let fishing = multiLinePrompt("\n\
 You reeled in a " + newFish.fish + " weighing " + newFish.weight + "lbs\n\
 and valued at $" + newFish.value + ".00!\n\
@@ -171,26 +233,26 @@ Would you like to: [c]atch or [r]elease ?)\n\
 
             //Art ===========================================================
 
-            console.log("                                      ____        ");
-            console.log("                                 /\\|    ~~\\     ");
-            console.log("                                / '  |  ,-.`\\    ");
-            console.log("                               |       | X | |    ");
-            console.log("                         ______|________`-'  |X   ");
-            console.log("                       /'          ~~~~~~~~~,     ");
-            console.log("                      /'             ,_____,/_    ");
-            console.log("                   ,/'        ___,'~~         ;   ");
-            console.log("~~~~~~~~|~~~~~~~|---         /  X,~~~~~~~~~~~~,   ");
-            console.log("        |       |           |  XX'____________'   ");
-            console.log("        |       |          /' XXX|            ;   ");
-            console.log("        |               --x|  XXX,~~~~~~~~~~~~,   ");
-            console.log("        |       |         X|     '____________'   ");
-            console.log("        |   o   |----~~~~\\__XX\\            |XX  ");
-            console.log("        |       |           XXX`\\          /XXXX ");
-            console.log("~~~~~~~~'~~~~~~~'                `\\xXXXXx/'\\XXX ");
-            console.log("                                    /XXXXXX\      ");
-            console.log("                                  / XXXXXXXXXX\   ");
-            console.log("                                /XXXXXX/^\\XDCAU\\");
-            console.log("                               ~~~~~~~~   ~~~~~~~ ");
+            console.log((chalk.green("                                      ____        ")));
+            console.log((chalk.green("                                 /\\|    ~~\\     ")));
+            console.log((chalk.green("                                / '  |  ,-.`\\    ")));
+            console.log((chalk.green("                               |       | X | |    ")));
+            console.log((chalk.green("                         ______|________`-'  |X   ")));
+            console.log((chalk.green("                       /'          ~~~~~~~~~,     ")));
+            console.log((chalk.green("                      /'             ,_____,/_    ")));
+            console.log((chalk.green("                   ,/'        ___,'~~         ;   ")));
+            console.log((chalk.green("~~~~~~~~|~~~~~~~|---         /  X,~~~~~~~~~~~~,   ")));
+            console.log((chalk.green("        |       |           |  XX'____________'   ")));
+            console.log((chalk.green("        |       |          /' XXX|            ;   ")));
+            console.log((chalk.green("        |               --x|  XXX,~~~~~~~~~~~~,   ")));
+            console.log((chalk.green("        |       |         X|     '____________'   ")));
+            console.log((chalk.green("        |   o   |----~~~~\\__XX\\            |XX  ")));
+            console.log((chalk.green("        |       |           XXX`\\          /XXXX ")));
+            console.log((chalk.green("~~~~~~~~'~~~~~~~'                `\\xXXXXx/'\\XXX ")));
+            console.log((chalk.green("                                    /XXXXXX\      ")));
+            console.log((chalk.green("                                  / XXXXXXXXXX\   ")));
+            console.log((chalk.green("                                /XXXXXX/^\\XDCAU\\")));
+            console.log((chalk.green("                               ~~~~~~~~   ~~~~~~~ ")));
             //Spacer
             console.log();
             console.log();
@@ -204,7 +266,7 @@ Would you like to: [c]atch or [r]elease ?)\n\
             // User stat update
             console.log("Your new total weight is now:  " + totalWeight.toFixed(2) + "lbs");
             console.log("You have made a total of:  $" + totalValue + ".00");
-            console.log("You have cought:  " + fishAmount + " fish");
+            console.log("You have caught:  " + fishAmount + " fish");
             console.log("The current time is:  " + timeHour + ":00" + timeAmpm);
 
             //Spacer
@@ -225,19 +287,19 @@ Would you like to: [c]atch or [r]elease ?)\n\
 
             //Art ===========================================================
 
-            console.log("             o                 o");
-            console.log("          o                     ");
-            console.log("    o       ______          O   ");
-            console.log("          _/  (   \\_           ");
-            console.log("_       _/  (       \\_      O  ");
-            console.log("| \\_   _/  (   (    0  \\      ");
-            console.log("|== \\_/  (   (          |  o   ");
-            console.log("|=== _ (   (   (        |       ");
-            console.log("|==_/ \\_ (   (          |      ");
-            console.log("|_/     \\_ (   (    \\__/      ");
-            console.log("         \\_ (      _/          ");
-            console.log("           |   |__/             ");
-            console.log("           /__/                 ");
+            console.log((chalk.green("             o                 o")));
+            console.log((chalk.green("          o                     ")));
+            console.log((chalk.green("    o       ______          O   ")));
+            console.log((chalk.green("          _/  (   \\_           ")));
+            console.log((chalk.green("_       _/  (       \\_      O  ")));
+            console.log((chalk.green("| \\_   _/  (   (    0  \\      ")));
+            console.log((chalk.green("|== \\_/  (   (          |  o   ")));
+            console.log((chalk.green("|=== _ (   (   (        |       ")));
+            console.log((chalk.green("|==_/ \\_ (   (          |      ")));
+            console.log((chalk.green("|_/     \\_ (   (    \\__/      ")));
+            console.log((chalk.green("         \\_ (      _/          ")));
+            console.log((chalk.green("           |   |__/             ")));
+            console.log((chalk.green("           /__/                 ")));
 
             //===============================================================
 
@@ -248,7 +310,7 @@ Would you like to: [c]atch or [r]elease ?)\n\
             console.log("You let the " + newFish.fish + " go.");
             console.log("Your total weight is:  " + totalWeight.toFixed(2) + "lbs");
             console.log("You have made a total of:  $" + totalValue + ".00");
-            console.log("You have cought:  " + fishAmount);
+            console.log("You have caught:  " + fishAmount);
             console.log("The current time is:  " + timeHour + ":00" + timeAmpm);
 
             //Spacer
@@ -266,16 +328,22 @@ Would you like to: [c]atch or [r]elease ?)\n\
 //While loop end/////////////////////////////////////////////////////////////
 
 //ENDGAME///////////////////////////////////////////////////////////////////
-
+console.log();
+console.log();
 console.log("TIME'S UP!");
-console.log("Your total weight is now:  " + totalWeight.toFixed(2) + "lbs");
+console.log();
+console.log("Your final weight is:  " + totalWeight.toFixed(2) + "lbs");
 console.log("You made a total of:  $" + totalValue + ".00");
-console.log("You cought:  " + fishAmount + " fish");
+console.log("You caught:  " + fishAmount + " fish");
 console.log();
 console.log();
-console.log("░██████╗░░█████╗░███╗░░░███╗███████╗  ░█████╗░██╗░░░██╗███████╗██████╗░");
-console.log("██╔════╝░██╔══██╗████╗░████║██╔════╝  ██╔══██╗██║░░░██║██╔════╝██╔══██╗");
-console.log("██║░░██╗░███████║██╔████╔██║█████╗░░  ██║░░██║╚██╗░██╔╝█████╗░░██████╔╝");
-console.log("██║░░╚██╗██╔══██║██║╚██╔╝██║██╔══╝░░  ██║░░██║░╚████╔╝░██╔══╝░░██╔══██╗");
-console.log("╚██████╔╝██║░░██║██║░╚═╝░██║███████╗  ╚█████╔╝░░╚██╔╝░░███████╗██║░░██║");
-console.log("░╚═════╝░╚═╝░░╚═╝╚═╝░░░░░╚═╝╚══════╝  ░╚════╝░░░░╚═╝░░░╚══════╝╚═╝░░╚═╝");
+console.log((chalk.red("░██████╗░░█████╗░███╗░░░███╗███████╗  ░█████╗░██╗░░░██╗███████╗██████╗░")));
+console.log((chalk.red("██╔════╝░██╔══██╗████╗░████║██╔════╝  ██╔══██╗██║░░░██║██╔════╝██╔══██╗")));
+console.log((chalk.red("██║░░██╗░███████║██╔████╔██║█████╗░░  ██║░░██║╚██╗░██╔╝█████╗░░██████╔╝")));
+console.log((chalk.red("██║░░╚██╗██╔══██║██║╚██╔╝██║██╔══╝░░  ██║░░██║░╚████╔╝░██╔══╝░░██╔══██╗")));
+console.log((chalk.red("╚██████╔╝██║░░██║██║░╚═╝░██║███████╗  ╚█████╔╝░░╚██╔╝░░███████╗██║░░██║")));
+console.log((chalk.red("░╚═════╝░╚═╝░░╚═╝╚═╝░░░░░╚═╝╚══════╝  ░╚════╝░░░░╚═╝░░░╚══════╝╚═╝░░╚═╝")));
+console.log();
+console.log();
+console.log();
+console.log();
