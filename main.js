@@ -12,7 +12,7 @@ const multiLinePrompt = ask => {
     return prompt(promptLine);
 };
 
-// Colors ==============================================================
+// Chalk colors ==============================================================
 
 const chalk = require('chalk');
 
@@ -78,7 +78,7 @@ function generateRandomFish(adjOne, adjTwo, fish) {
 
 // Game Start /////////////////////////////////////////////////////
 
-// Art ============================================================
+// Title Art ============================================================
 
 console.log((chalk.blue("====================================================================================")));
 console.log((chalk.blue("░██████╗░░█████╗░███╗░░██╗███████╗  ███████╗██╗░██████╗██╗░░██╗██╗███╗░░██╗░██████╗░")));
@@ -112,9 +112,9 @@ let totalWeight = 0;
 let promptStart = multiLinePrompt("\n\
 The time is " + timeHour + timeMin + timeAmpm +
     " So far you've caught: \n\
-" + fishAmount + " fish, " + "and earned $" + totalValue + ".00 \n\
+" + chalk.red(fishAmount + " fish, ") + "and earned" + chalk.red(" $" + totalValue + ".00") + "\n\
 \n\
-press [Enter] to begin fishing");
+Press " + chalk.green("[Enter]") + " to begin fishing");
 
 // Terminal clear
 console.clear();
@@ -168,10 +168,10 @@ while (timeHour !== 12) {
         console.log();
 
         // Current user stats
-        console.log("Your total weight is:  " + totalWeight.toFixed(2) + "lbs");
-        console.log("You have made a total of:  $" + totalValue + ".00");
-        console.log("You have caught:  " + fishAmount + " fish");
-        console.log("The current time is:  " + timeHour + ":00" + timeAmpm);
+        console.log("Your total weight is:  " + chalk.green(totalWeight.toFixed(2) + "lbs"));
+        console.log("You have made a total of: " + chalk.green("$" + totalValue + ".00"));
+        console.log("You have caught:  " + chalk.green(fishAmount + " fish"));
+        console.log("The current time is:  " + chalk.green(timeHour + ":00" + timeAmpm));
 
         // Spacer
         console.log();
@@ -179,12 +179,12 @@ while (timeHour !== 12) {
 
         //Pack is too heavy prompt
         let tooHeavy = multiLinePrompt("\n\
-You reeled in a " + newFish.fish + " weighing " + newFish.weight + "lbs\n\
-and valued at $" + newFish.value + ".00\n\
+You reeled in a " + chalk.green(newFish.fish) + " weighing " + chalk.green(newFish.weight + "lbs") + "\n\
+and valued at " + chalk.green("$" + newFish.value + ".00") + "\n\
 \n\
 Unfortunately the fish is too heavy to add to your bag and it got away\n\
 \n\
-Press [Enter] to cast again.");
+Press " + chalk.yellow("[Enter]") + " to cast again.");
 
         // Terminal clear
         console.clear();
@@ -200,10 +200,10 @@ Press [Enter] to cast again.");
         console.log();
 
         // Current user stats
-        console.log("Your total weight is:  " + totalWeight.toFixed(2) + "lbs");
-        console.log("You have made a total of:  $" + totalValue + ".00");
-        console.log("You have caught:  " + fishAmount + " fish");
-        console.log("The current time is:  " + timeHour + ":00" + timeAmpm);
+        console.log("Your total weight is:  " + chalk.green(totalWeight.toFixed(2) + "lbs"));
+        console.log("You have made a total of:  " + chalk.green("$" + totalValue + ".00"));
+        console.log("You have caught:  " + chalk.green(fishAmount + " fish"));
+        console.log("The current time is:  " + chalk.green(timeHour + ":00" + timeAmpm));
 
         // Spacer
         console.log();
@@ -217,10 +217,12 @@ Press [Enter] to cast again.");
 
         // Catch or release prompt
         let fishing = multiLinePrompt("\n\
-You reeled in a " + newFish.fish + " weighing " + newFish.weight + "lbs\n\
-and valued at $" + newFish.value + ".00!\n\
+You reeled in a " + chalk.green(newFish.fish) + " weighing " +
+            chalk.green(newFish.weight + "lbs") + "\n\
+and valued at " + chalk.green("$" + newFish.value + ".00") + "\n\
 \n\
-Would you like to: [c]atch or [r]elease ?)\n\
+\n\
+Would you like to: "+ chalk.yellow("[c]") + "atch or " + chalk.yellow("[r]") + "elease ?)\n\
 \n\
 ");
 
@@ -264,16 +266,17 @@ Would you like to: [c]atch or [r]elease ?)\n\
             totalValue += newFish.value;
 
             // User stat update
-            console.log("Your new total weight is now:  " + totalWeight.toFixed(2) + "lbs");
-            console.log("You have made a total of:  $" + totalValue + ".00");
-            console.log("You have caught:  " + fishAmount + " fish");
-            console.log("The current time is:  " + timeHour + ":00" + timeAmpm);
+            console.log("Your new total weight is now:  " +
+                chalk.green(totalWeight.toFixed(2) + "lbs"));
+            console.log("You have made a total of:  " + chalk.green("$" + totalValue + ".00"));
+            console.log("You have caught:  " + chalk.green(fishAmount + " fish"));
+            console.log("The current time is:  " + chalk.green(timeHour + ":00" + timeAmpm));
 
             //Spacer
             console.log();
 
             //Re-cast prompt
-            let cast = prompt("Press [Enter] to cast again");
+            let cast = prompt("Press " + chalk.yellow("[Enter]") + " to cast again.");
 
             // Terminal clear
             console.clear();
@@ -306,18 +309,27 @@ Would you like to: [c]atch or [r]elease ?)\n\
             //Spacer
             console.log();
 
-            // User stat update
-            console.log("You let the " + newFish.fish + " go.");
-            console.log("Your total weight is:  " + totalWeight.toFixed(2) + "lbs");
-            console.log("You have made a total of:  $" + totalValue + ".00");
-            console.log("You have caught:  " + fishAmount);
-            console.log("The current time is:  " + timeHour + ":00" + timeAmpm);
+            // Release message
+            console.log(chalk.red("You let the " + newFish.fish + " go."));
+
+            //Spacer
+            console.log();
+
+            //User Stats
+            console.log("========================================================");
+            console.log();
+            console.log("Your total weight is:  " + chalk.green(totalWeight.toFixed(2) + " lbs"));
+            console.log("You have made a total of:  " + chalk.green("$" + totalValue + ".00"));
+            console.log("You have caught:  " + chalk.green(fishAmount + " fish"));
+            console.log("The current time is:  " + chalk.green(timeHour + ":00" + timeAmpm));
+            console.log();
+            console.log("========================================================");
 
             //Spacer
             console.log();
 
             //Re-cast prompt
-            let cast = prompt("Press [Enter] to cast again");
+            let cast = prompt("Press " + chalk.yellow("[Enter]") + " to cast again.");
 
             // Terminal clear
             console.clear();
@@ -330,11 +342,11 @@ Would you like to: [c]atch or [r]elease ?)\n\
 //ENDGAME///////////////////////////////////////////////////////////////////
 console.log();
 console.log();
-console.log("TIME'S UP!");
+console.log(chalk.red("TIME'S UP!"));
 console.log();
-console.log("Your final weight is:  " + totalWeight.toFixed(2) + "lbs");
-console.log("You made a total of:  $" + totalValue + ".00");
-console.log("You caught:  " + fishAmount + " fish");
+console.log("Your final weight is:  " + chalk.red(totalWeight.toFixed(2) + " lbs"));
+console.log("You made a total of:  " + chalk.red("$" + totalValue + ".00"));
+console.log("You caught:  " + chalk.red(fishAmount + " fish"));
 console.log();
 console.log();
 console.log((chalk.red("░██████╗░░█████╗░███╗░░░███╗███████╗  ░█████╗░██╗░░░██╗███████╗██████╗░")));
