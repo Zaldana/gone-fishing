@@ -137,7 +137,10 @@ while (timeHour !== 12) {
 
     // Boot Check =========================================================
 
-    if (newFish.fish.includes("Leather Boot")) { newFish.value = 0; }
+    if (newFish.fish.includes("Leather Boot")) {
+        newFish.value = 0;
+        newFish.fish = "Stinky Leather Boot"
+    }
 
     // Fish weight check & Warning ==================================================
 
