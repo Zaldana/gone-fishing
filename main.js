@@ -125,7 +125,7 @@ while (timeHour !== 12) {
 
     // Game Tools////////////////////////////////////////////////////////
 
-    // Game clock ======================================================
+    // Game clock ========================================================
 
     timeHour += 1;
     timeCount += 1;
@@ -142,11 +142,18 @@ while (timeHour !== 12) {
         newFish.fish = "Stinky Leather Boot"
     }
 
-    // Fish weight check & Warning ==================================================
+    // Guppy Check ========================================================
+
+    if (Number(newFish.weight) < 1) {
+        newFish.value = 1;
+        newFish.fish = "Tiny Guppy";
+    }
+
+    // Fish weight check & Warning =========================================
 
     if (Number(newFish.weight) + Number(totalWeight) > 10) {
 
-        //Art ===========================================================
+        //Art ==============================================================
 
         console.log((chalk.green("             o                 o")));
         console.log((chalk.green("          o                     ")));
