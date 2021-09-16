@@ -34,7 +34,7 @@ const fish = ["Trout", "Carp", "Catfish", "Loach", "Bass",
 
 function generateRandomFish(adjOne, adjTwo, fish) {
 
-    // Empty first adjective   
+    // Empty first adjectiv
     let firstAdj = [];
 
     // Empty second adjective
